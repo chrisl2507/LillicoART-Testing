@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import SiteSchema from "../components/SiteSchema.astro";
 import { ClientRouter } from "astro:transitions";
+import { url } from "../utils/url.ts";
 
 export interface Props {
   title: string;
@@ -26,6 +27,7 @@ const {
 const canonicalURL = canonical
   ? new URL(canonical, Astro.site)
   : new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(url(ogImage), Astro.site);
 ---
 
 <!doctype html>
@@ -41,7 +43,7 @@ const canonicalURL = canonical
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:image" content={ogImageURL} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Fonts — preconnect + display=swap for fast first paint -->
@@ -59,9 +61,9 @@ const canonicalURL = canonical
 
     <meta name="theme-color" content="#0b0b0c" />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" href="/favicon.webp" type="image/webp" />
-    <link rel="apple-touch-icon" href="/favicon.webp" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={url("/favicon.webp")} type="image/webp" />
+    <link rel="apple-touch-icon" href={url("/favicon.webp")} />
+    <link rel="sitemap" href={url("/sitemap-index.xml")} />
 
     <SiteSchema />
     <ClientRouter />

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../utils/url.ts";
 ---
 
 <BaseLayout
@@ -18,11 +19,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         you'll hear back within a few days, often sooner.
       </p>
       <div class="thanks__actions" data-reveal style="--reveal-delay: 300ms">
-        <a href="/" class="btn">
+        <a href={url("/")} class="btn">
           Return Home
           <span class="btn-arrow" aria-hidden="true">&rarr;</span>
         </a>
-        <a href="/gallery" class="link-ember">
+        <a href={url("/gallery")} class="link-ember">
           Or browse the gallery &rarr;
         </a>
       </div>

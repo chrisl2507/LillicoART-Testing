@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { featuredArtworks, artworks } from "../data/artworks.ts";
+import { url } from "../utils/url.ts";
 
 const hero = artworks.find((a) => a.slug === "masculinity")!;
 const enPointe = artworks.find((a) => a.slug === "en-pointe")!;
@@ -122,7 +123,7 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
     </div>
 
     <div class="featured__footer container-page" data-reveal>
-      <a href="/gallery" class="btn">
+      <a href={url("/gallery")} class="btn">
         View the full gallery
         <span class="btn-arrow" aria-hidden="true">&rarr;</span>
       </a>
@@ -167,7 +168,7 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
             identity, intimacy, and the stories that sit just beneath the
             surface.
           </p>
-          <a href="/about" class="link-ember artist__link">
+          <a href={url("/about")} class="link-ember artist__link">
             Read the full story &rarr;
           </a>
         </div>
@@ -225,7 +226,7 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
       </ol>
 
       <div class="process__cta" data-reveal>
-        <a href="/commissions" class="btn btn-ember">
+        <a href={url("/commissions")} class="btn btn-ember">
           Learn about commissions
           <span class="btn-arrow" aria-hidden="true">&rarr;</span>
         </a>

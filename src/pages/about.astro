@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { artworks } from "../data/artworks.ts";
+import { url } from "../utils/url.ts";
 
 const portrait = artworks.find((a) => a.slug === "en-pointe")!;
 ---
@@ -66,7 +67,7 @@ const portrait = artworks.find((a) => a.slug === "en-pointe")!;
         Every portrait begins with a <em>conversation.</em>
       </h2>
       <div data-reveal style="--reveal-delay: 200ms">
-        <a href="/#contact" class="btn btn-ember">
+        <a href={`${url("/")}#contact`} class="btn btn-ember">
           Get in touch
           <span class="btn-arrow" aria-hidden="true">&rarr;</span>
         </a>
