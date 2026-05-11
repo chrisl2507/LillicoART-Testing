@@ -1,4 +1,5 @@
 ---
+import { url } from "../utils/url.ts";
 const year = new Date().getFullYear();
 ---
 
@@ -13,10 +14,10 @@ const year = new Date().getFullYear();
       <div>
         <p class="eyebrow">Explore</p>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/commissions">Commissions</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href={url("/")}>Home</a></li>
+          <li><a href={url("/gallery")}>Gallery</a></li>
+          <li><a href={url("/commissions")}>Commissions</a></li>
+          <li><a href={url("/about")}>About</a></li>
         </ul>
       </div>
       <div>
@@ -32,14 +33,14 @@ const year = new Date().getFullYear();
               rel="noopener noreferrer">Instagram</a
             >
           </li>
-          <li><a href="/#contact">Commission enquiry</a></li>
+          <li><a href={`${url("/")}#contact`}>Commission enquiry</a></li>
         </ul>
       </div>
       <div>
         <p class="eyebrow">Studio</p>
         <ul>
           <li>Suffolk, United Kingdom</li>
-          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href={url("/privacy")}>Privacy Policy</a></li>
         </ul>
       </div>
     </nav>

@@ -1,6 +1,9 @@
 ---
 // Netlify form — preserved from previous site.
-// The hidden form-name input and data-netlify attr are required by Netlify.
+// Note: form submission only works when deployed to Netlify.
+// On GitHub Pages (static-only) the POST will 405; the form is
+// preserved here so the layout/styling can still be reviewed.
+import { url } from "../utils/url.ts";
 ---
 
 <form
@@ -8,7 +11,7 @@
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
-  action="/thank-you"
+  action={url("/thank-you")}
   class="contact-form"
 >
   <input type="hidden" name="form-name" value="contact" />

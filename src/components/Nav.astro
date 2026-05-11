@@ -1,13 +1,17 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/images/Logo.webp";
+import { url } from "../utils/url.ts";
 
 export interface Props {
   variant?: "transparent" | "solid";
 }
 
 const { variant = "transparent" } = Astro.props;
-const pathname = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const stripBase = (p: string) =>
+  base && p.startsWith(base) ? p.slice(base.length) || "/" : p;
+const pathname = stripBase(Astro.url.pathname);
 const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -21,7 +25,7 @@ const links = [
 
 <header class="site-nav" data-variant={variant}>
   <div class="site-nav__inner">
-    <a href="/" class="site-nav__brand" aria-label="Lillico Art — home">
+    <a href={url("/")} class="site-nav__brand" aria-label="Lillico Art — home">
       <Image
         src={logo}
         alt="Lillico Art"
@@ -48,7 +52,7 @@ const links = [
           links.map((l) => (
             <li>
               <a
-                href={l.href}
+                href={url(l.href)}
                 class:list={["site-nav__link", { "is-active": isActive(l.href) }]}
               >
                 {l.label}
@@ -57,7 +61,7 @@ const links = [
           ))
         }
         <li>
-          <a href="/#contact" class="site-nav__link site-nav__link--cta">
+          <a href={`${url("/")}#contact`} class="site-nav__link site-nav__link--cta">
             Contact
           </a>
         </li>
