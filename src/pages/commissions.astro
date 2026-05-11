@@ -1,0 +1,112 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { commissionExamples } from "../data/artworks.ts";
+---
+
+<BaseLayout
+  title="Commissions — Lillico Art"
+  description="Charcoal and graphite portrait commissions by Esme Lillico, from £150."
+  navVariant="solid"
+>
+  <section class="page-head">
+    <div class="container-page">
+      <p class="eyebrow eyebrow-ember" data-reveal>Commissions</p>
+      <h1 class="page-head__title" data-reveal style="--reveal-delay: 100ms">
+        Drawn for <em>you.</em>
+      </h1>
+      <p class="page-head__lede" data-reveal style="--reveal-delay: 200ms">
+        From <strong>£150</strong>. A single portrait can take three to six
+        weeks to complete. Each one begins with a conversation.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page commission-examples">
+    {
+      commissionExamples.map((p) => (
+        <figure class="commission-card" data-reveal>
+          <Image
+            src={p.image}
+            alt={p.alt}
+            widths={[400, 700, 1100]}
+            sizes="(min-width: 1024px) 33vw, 92vw"
+            loading="lazy"
+          />
+        </figure>
+      ))
+    }
+  </section>
+
+  <section class="commission-cta container-narrow">
+    <p class="eyebrow eyebrow-ember" data-reveal>Begin a Commission</p>
+    <h2 data-reveal style="--reveal-delay: 100ms">
+      Tell me the <em>story.</em>
+    </h2>
+    <div data-reveal style="--reveal-delay: 200ms">
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding: 10rem 0 var(--space-xl);
+    background: var(--color-ink-900);
+    text-align: center;
+  }
+  .page-head__title {
+    font-size: var(--text-h1);
+    margin: 0.5rem 0 var(--space-md);
+  }
+  .page-head__title em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+  .page-head__lede {
+    margin: 0 auto;
+    max-width: 50ch;
+    font-family: var(--font-display);
+    color: var(--color-ink-300);
+    font-size: var(--text-lead);
+    line-height: 1.55;
+  }
+  .page-head__lede strong {
+    color: var(--color-ember);
+    font-weight: 500;
+  }
+
+  .commission-examples {
+    padding-block: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+  }
+  .commission-card {
+    margin: 0;
+    overflow: hidden;
+  }
+  .commission-card :global(img) {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .commission-cta {
+    padding: var(--space-2xl) clamp(1.25rem, 4vw, 3rem);
+    text-align: center;
+  }
+  .commission-cta .eyebrow {
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .commission-cta h2 {
+    font-size: var(--text-h2);
+    margin: 0 0 var(--space-xl);
+  }
+  .commission-cta h2 em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+</style>

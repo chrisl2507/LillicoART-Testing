@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Thank You — Lillico Art"
+  description="Your message has been received. Esme will be in touch soon."
+  navVariant="solid"
+>
+  <section class="thanks">
+    <div class="container-narrow thanks__inner">
+      <p class="eyebrow eyebrow-ember" data-reveal>Message Received</p>
+      <h1 class="thanks__title" data-reveal style="--reveal-delay: 100ms">
+        Thank <em>you.</em>
+      </h1>
+      <p class="thanks__body" data-reveal style="--reveal-delay: 200ms">
+        Your message has arrived in the studio. I read every enquiry myself —
+        you'll hear back within a few days, often sooner.
+      </p>
+      <div class="thanks__actions" data-reveal style="--reveal-delay: 300ms">
+        <a href="/" class="btn">
+          Return Home
+          <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="/gallery" class="link-ember">
+          Or browse the gallery &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks {
+    min-height: 80svh;
+    display: grid;
+    place-items: center;
+    padding: 10rem 0 var(--space-2xl);
+    background: var(--color-ink-900);
+  }
+  .thanks__inner {
+    text-align: center;
+  }
+  .thanks__title {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 300;
+    margin: 0 0 var(--space-lg);
+    line-height: 1;
+  }
+  .thanks__title em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+  .thanks__body {
+    font-family: var(--font-display);
+    font-size: var(--text-lead);
+    color: var(--color-ink-300);
+    margin: 0 auto var(--space-xl);
+    max-width: 42ch;
+    line-height: 1.6;
+  }
+  .thanks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    align-items: center;
+  }
+</style>

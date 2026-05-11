@@ -1,0 +1,66 @@
+---
+// JSON-LD structured data — shared across all pages.
+// Preserved from the previous site to maintain SEO.
+const business = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.lillicoart.com/#business",
+  name: "Lillico Art",
+  description:
+    "Hand-drawn charcoal and graphite portrait commissions by Esme Lillico, based in Suffolk, UK.",
+  url: "https://www.lillicoart.com",
+  image: "https://www.lillicoart.com/og-default.webp",
+  priceRange: "££",
+  email: "lilli.co.art@gmail.com",
+  founder: { "@id": "https://www.lillicoart.com/#esme" },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "Suffolk",
+    addressCountry: "GB",
+  },
+  areaServed: [
+    { "@type": "City", name: "Ipswich" },
+    { "@type": "City", name: "Bury St Edmunds" },
+    { "@type": "City", name: "Colchester" },
+    { "@type": "City", name: "Cambridge" },
+    { "@type": "AdministrativeArea", name: "Suffolk" },
+    { "@type": "AdministrativeArea", name: "Norfolk" },
+  ],
+  knowsAbout: [
+    "charcoal portraiture",
+    "graphite drawing",
+    "portrait commissions",
+    "fine art",
+  ],
+  sameAs: [
+    "https://www.instagram.com/lilli.coart/",
+    "https://www.collectartwork.org/post/esme-lillico-figurative-art",
+  ],
+};
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://www.lillicoart.com/#esme",
+  name: "Esme Lillico",
+  jobTitle: "Portrait Artist",
+  description:
+    "Suffolk-based charcoal and graphite portrait artist. MFA candidate. Exhibited in Halifax and Sheffield.",
+  url: "https://www.lillicoart.com",
+  image: "https://www.lillicoart.com/og-default.webp",
+  knowsAbout: [
+    "Charcoal portraiture",
+    "Graphite drawing",
+    "Figure studies",
+    "Fine art commissions",
+  ],
+  worksFor: { "@id": "https://www.lillicoart.com/#business" },
+  sameAs: [
+    "https://www.instagram.com/lilli.coart/",
+    "https://www.collectartwork.org/post/esme-lillico-figurative-art",
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(business)} />
+<script type="application/ld+json" set:html={JSON.stringify(person)} />

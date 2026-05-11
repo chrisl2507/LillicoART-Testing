@@ -1,0 +1,100 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import SiteSchema from "../components/SiteSchema.astro";
+import { ClientRouter } from "astro:transitions";
+
+export interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  bodyClass?: string;
+  navVariant?: "transparent" | "solid";
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-default.webp",
+  canonical,
+  bodyClass = "",
+  navVariant = "transparent",
+} = Astro.props;
+
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts — preconnect + display=swap for fast first paint -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    />
+
+    <meta name="theme-color" content="#0b0b0c" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" href="/favicon.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="/favicon.webp" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <SiteSchema />
+    <ClientRouter />
+  </head>
+  <body class={bodyClass}>
+    <a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>
+    <Nav variant={navVariant} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Scroll reveal — IntersectionObserver, no library -->
+    <script>
+      const setupReveal = () => {
+        const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+        if (!els.length) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        els.forEach((el) => io.observe(el));
+      };
+
+      setupReveal();
+      document.addEventListener("astro:page-load", setupReveal);
+    </script>
+  </body>
+</html>

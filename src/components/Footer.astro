@@ -1,0 +1,174 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <p class="site-footer__mark">Lillico Art</p>
+      <p class="site-footer__tag">Charcoal &amp; graphite portraiture, Suffolk.</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <div>
+        <p class="eyebrow">Explore</p>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/commissions">Commissions</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Connect</p>
+        <ul>
+          <li>
+            <a href="mailto:lilli.co.art@gmail.com">lilli.co.art@gmail.com</a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/lilli.coart/"
+              target="_blank"
+              rel="noopener noreferrer">Instagram</a
+            >
+          </li>
+          <li><a href="/#contact">Commission enquiry</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Studio</p>
+        <ul>
+          <li>Suffolk, United Kingdom</li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="site-footer__rule"></div>
+
+  <div class="site-footer__legal">
+    <p>&copy; {year} Lillico Art. All rights reserved.</p>
+    <p class="site-footer__credit">Drawn by hand &middot; built with care.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+    background: var(--color-ink-950);
+    color: var(--color-ink-400);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-md);
+  }
+
+  .site-footer__inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .site-footer__brand {
+    max-width: 28ch;
+  }
+
+  .site-footer__mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--color-ink-100);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .site-footer__tag {
+    margin: 0;
+    color: var(--color-ink-500);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .site-footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .site-footer__nav .eyebrow {
+    margin-bottom: 1rem;
+    color: var(--color-ink-300);
+  }
+
+  .site-footer__nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .site-footer__nav a {
+    color: var(--color-ink-400);
+    transition: color var(--duration-fast) var(--ease-out-soft);
+    font-size: 0.95rem;
+  }
+
+  .site-footer__nav a:hover {
+    color: var(--color-ember);
+  }
+
+  .site-footer__rule {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: var(--space-xl) auto var(--space-md);
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-ink-800) 30%,
+      var(--color-ink-800) 70%,
+      transparent
+    );
+  }
+
+  .site-footer__legal {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--color-ink-500);
+  }
+
+  .site-footer__credit {
+    font-style: italic;
+    margin: 0;
+  }
+
+  .site-footer__legal p {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .site-footer__nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+  }
+</style>
