@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacy Policy — Lillico Art"
+  description="Privacy policy for lillicoart.com."
+  navVariant="solid"
+>
+  <section class="page-head">
+    <div class="container-page">
+      <p class="eyebrow eyebrow-ember">Privacy</p>
+      <h1 class="page-head__title">Privacy <em>Policy.</em></h1>
+    </div>
+  </section>
+
+  <article class="prose container-narrow">
+    <p>
+      Lillico Art ("we", "I") respects your privacy. This policy explains what
+      information we collect and how it is used.
+    </p>
+
+    <h2>What we collect</h2>
+    <p>
+      When you submit the contact form, we collect your name, email address,
+      and the contents of your message. This is processed by Netlify Forms on
+      our behalf and emailed to lilli.co.art@gmail.com.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      This site uses only essential cookies needed for navigation. No tracking
+      or analytics cookies are used without consent.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You can request that we delete any personal information we hold about
+      you at any time. Email <a class="link-ember" href="mailto:lilli.co.art@gmail.com"
+        >lilli.co.art@gmail.com</a
+      > and we'll respond promptly.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding: 10rem 0 var(--space-xl);
+    background: var(--color-ink-900);
+    text-align: center;
+  }
+  .page-head__title {
+    font-size: var(--text-h1);
+    margin: 0.5rem 0;
+  }
+  .page-head__title em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+
+  .prose {
+    padding: var(--space-xl) clamp(1.25rem, 4vw, 3rem) var(--space-2xl);
+  }
+  .prose p {
+    color: var(--color-ink-300);
+    margin: 0 0 1.2rem;
+    line-height: 1.8;
+  }
+  .prose h2 {
+    font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem);
+    font-family: var(--font-display);
+    font-style: italic;
+    margin: var(--space-lg) 0 var(--space-sm);
+    color: var(--color-ink-50);
+  }
+</style>

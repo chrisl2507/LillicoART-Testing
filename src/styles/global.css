@@ -1,0 +1,399 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LILLICO ART — DESIGN SYSTEM
+   A charcoal-dark, editorial design language for a portrait
+   artist working in charcoal & graphite.
+   ============================================================ */
+
+@theme {
+  /* — Palette — */
+  /* The deep blacks of charcoal sticks, the warm whites of
+     toned paper, and a single accent: the warm graphite glow
+     where light catches a freshly worked mark. */
+  --color-ink-950: #050505;       /* darkest — the page void */
+  --color-ink-900: #0b0b0c;       /* primary background */
+  --color-ink-850: #111113;       /* card / elevated surface */
+  --color-ink-800: #18181b;       /* divider, subtle elevation */
+  --color-ink-700: #2a2a2e;       /* hairline borders */
+  --color-ink-600: #3f3f44;
+  --color-ink-500: #6a6a70;       /* muted text */
+  --color-ink-400: #9b9ba1;       /* secondary text */
+  --color-ink-300: #c8c8cc;
+  --color-ink-200: #e6e4dd;       /* warm paper white */
+  --color-ink-100: #f1efe7;       /* hero paper */
+  --color-ink-50:  #f8f6ef;       /* lightest paper */
+
+  --color-paper:   #f1efe7;       /* alias */
+  --color-bone:    #d9d4c5;       /* warm mid-tone */
+  --color-ember:   #b8845a;       /* the single accent — graphite-warm */
+  --color-ember-dim: #8a6543;
+
+  /* — Typography — */
+  --font-display: "Cormorant Garamond", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+  /* Fluid type scale — clamped between mobile & desktop */
+  --text-eyebrow: clamp(0.7rem, 0.65rem + 0.2vw, 0.78rem);
+  --text-body-sm: clamp(0.9rem, 0.85rem + 0.2vw, 0.98rem);
+  --text-body: clamp(1.02rem, 0.95rem + 0.3vw, 1.12rem);
+  --text-lead: clamp(1.15rem, 1.0rem + 0.6vw, 1.4rem);
+  --text-h3: clamp(1.6rem, 1.3rem + 1.2vw, 2.4rem);
+  --text-h2: clamp(2.2rem, 1.6rem + 2.5vw, 4rem);
+  --text-h1: clamp(3rem, 2rem + 4.5vw, 6.5rem);
+  --text-display: clamp(4rem, 2.5rem + 7vw, 11rem);
+
+  /* — Spacing — fluid scale */
+  --space-3xs: clamp(0.25rem, 0.2rem + 0.2vw, 0.4rem);
+  --space-2xs: clamp(0.5rem, 0.4rem + 0.3vw, 0.7rem);
+  --space-xs: clamp(0.75rem, 0.6rem + 0.5vw, 1.1rem);
+  --space-sm: clamp(1rem, 0.8rem + 0.8vw, 1.6rem);
+  --space-md: clamp(1.5rem, 1.2rem + 1.2vw, 2.4rem);
+  --space-lg: clamp(2.5rem, 2rem + 2vw, 4rem);
+  --space-xl: clamp(4rem, 3rem + 3.5vw, 7rem);
+  --space-2xl: clamp(6rem, 4rem + 6vw, 11rem);
+  --space-3xl: clamp(8rem, 5rem + 9vw, 16rem);
+
+  /* — Motion — */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 240ms;
+  --duration-base: 480ms;
+  --duration-slow: 900ms;
+  --duration-cinematic: 1400ms;
+
+  /* — Layout — */
+  --measure-narrow: 38ch;
+  --measure: 60ch;
+  --container-max: 96rem;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--color-ink-950);
+    color: var(--color-ink-200);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.7;
+    font-weight: 300;
+    background: var(--color-ink-900);
+    color: var(--color-ink-200);
+    overflow-x: hidden;
+  }
+
+  /* Display family for headings */
+  h1, h2, h3, h4, .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: var(--color-ink-100);
+  }
+
+  h1 { font-size: var(--text-h1); }
+  h2 { font-size: var(--text-h2); }
+  h3 { font-size: var(--text-h3); font-weight: 400; }
+
+  p {
+    max-width: var(--measure);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out-soft);
+  }
+
+  ::selection {
+    background: var(--color-ember);
+    color: var(--color-ink-950);
+  }
+
+  /* Focus — soft amber ring honoring the ember accent */
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  img, svg, video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ============================================================
+   UTILITIES & PRIMITIVES
+   ============================================================ */
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .container-narrow {
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  /* The eyebrow label — used everywhere */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+
+  .eyebrow-ember {
+    color: var(--color-ember);
+  }
+
+  /* Display headline — the dramatic ones */
+  .display-xl {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    font-style: italic;
+  }
+
+  /* The hairline rule */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-ink-700) 20%,
+      var(--color-ink-700) 80%,
+      transparent
+    );
+    border: 0;
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Paper grain — subtle noise overlay for that toned-paper feel */
+  .paper-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Charcoal-edge vignette */
+  .charcoal-vignette {
+    position: relative;
+  }
+  .charcoal-vignette::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+}
+
+/* ============================================================
+   COMPONENTS — semantic, not Tailwind
+   ============================================================ */
+
+@layer components {
+  /* — Buttons — */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    padding: 0.95em 1.8em;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: var(--color-ink-100);
+    transition: all var(--duration-base) var(--ease-out-soft);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink-100);
+    transform: translateY(100%);
+    transition: transform var(--duration-base) var(--ease-out-soft);
+    z-index: -1;
+  }
+  .btn:hover {
+    color: var(--color-ink-900);
+  }
+  .btn:hover::before {
+    transform: translateY(0);
+  }
+  .btn .btn-arrow {
+    display: inline-block;
+    transition: transform var(--duration-base) var(--ease-out-soft);
+  }
+  .btn:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-ember {
+    color: var(--color-ember);
+    border-color: var(--color-ember);
+  }
+  .btn-ember::before {
+    background: var(--color-ember);
+  }
+
+  /* — Inline ember link — */
+  .link-ember {
+    color: var(--color-ember);
+    position: relative;
+    transition: color var(--duration-fast) var(--ease-out-soft);
+  }
+  .link-ember::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0.4);
+    transform-origin: left;
+    transition: transform var(--duration-base) var(--ease-out-soft);
+  }
+  .link-ember:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* — Form fields — */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .field-input,
+  .field-textarea {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink-700);
+    color: var(--color-ink-100);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    padding: 0.7rem 0;
+    transition: border-color var(--duration-fast) var(--ease-out-soft);
+    width: 100%;
+  }
+  .field-input:focus,
+  .field-textarea:focus {
+    outline: none;
+    border-bottom-color: var(--color-ember);
+  }
+  .field-textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+}
+
+/* ============================================================
+   MOTION — reveal-on-scroll primitives
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--duration-cinematic) var(--ease-out-soft),
+    transform var(--duration-cinematic) var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="up-lg"] {
+  transform: translateY(64px);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Astro View Transitions — cinematic crossfade */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

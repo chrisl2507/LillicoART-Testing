@@ -1,0 +1,144 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { artworks } from "../data/artworks.ts";
+
+const portrait = artworks.find((a) => a.slug === "en-pointe")!;
+---
+
+<BaseLayout
+  title="About — Esme Lillico, Charcoal Portrait Artist"
+  description="About Esme Lillico — Suffolk-based charcoal and graphite portrait artist, MFA candidate, exhibited in Halifax and Sheffield."
+  navVariant="solid"
+>
+  <section class="page-head">
+    <div class="container-page">
+      <p class="eyebrow eyebrow-ember" data-reveal>The Artist</p>
+      <h1 class="page-head__title" data-reveal style="--reveal-delay: 100ms">
+        Esme <em>Lillico.</em>
+      </h1>
+    </div>
+  </section>
+
+  <section class="about container-page">
+    <div class="about__image" data-reveal>
+      <Image
+        src={portrait.image}
+        alt="A study from the studio"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 900px) 45vw, 92vw"
+        loading="eager"
+      />
+    </div>
+    <div class="about__text" data-reveal style="--reveal-delay: 150ms">
+      <p class="lede">
+        I'm a charcoal and graphite portrait artist based in Suffolk, working
+        across East Anglia and the UK.
+      </p>
+      <p>
+        My practice is rooted in the quiet moment — the way a face settles when
+        it forgets it's being watched. I'm drawn to portraiture because it lets
+        me sit with someone, really see them, and try to put down on paper what
+        I find there.
+      </p>
+      <p>
+        Charcoal and graphite are honest mediums. They show every hesitation,
+        every confident stroke. The range from deepest black to whispered grey
+        gives me the tonal vocabulary I need to draw what I'm after: presence.
+      </p>
+      <p>
+        I'm currently an MFA candidate. My work has been exhibited at <em
+          >Open Gallery, Halifax</em
+        > and <em>Fronteer Gallery, Sheffield</em>, and featured by <a
+          class="link-ember"
+          href="https://www.collectartwork.org/post/esme-lillico-figurative-art"
+          target="_blank"
+          rel="noopener noreferrer">Collect Art</a
+        >.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="container-narrow about-cta__inner">
+      <p class="eyebrow eyebrow-ember" data-reveal>Begin a Conversation</p>
+      <h2 data-reveal style="--reveal-delay: 100ms">
+        Every portrait begins with a <em>conversation.</em>
+      </h2>
+      <div data-reveal style="--reveal-delay: 200ms">
+        <a href="/#contact" class="btn btn-ember">
+          Get in touch
+          <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding: 10rem 0 var(--space-xl);
+    background: var(--color-ink-900);
+    text-align: center;
+  }
+  .page-head__title {
+    font-size: var(--text-h1);
+    margin: 0.5rem 0;
+  }
+  .page-head__title em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+
+  .about {
+    padding-block: var(--space-xl) var(--space-2xl);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .about__image :global(img) {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  }
+  .about__text p {
+    color: var(--color-ink-300);
+    margin: 0 0 1.2rem;
+    line-height: 1.8;
+    max-width: 56ch;
+  }
+  .about__text .lede {
+    font-family: var(--font-display);
+    font-size: var(--text-lead);
+    color: var(--color-ink-100);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 1.6rem;
+  }
+  .about__text em {
+    color: var(--color-ember);
+    font-style: italic;
+  }
+
+  .about-cta {
+    padding-block: var(--space-2xl);
+    background: var(--color-ink-950);
+    text-align: center;
+  }
+  .about-cta__inner h2 {
+    font-size: var(--text-h2);
+    margin: 1rem auto var(--space-xl);
+    max-width: 18ch;
+  }
+  .about-cta__inner h2 em {
+    font-style: italic;
+    color: var(--color-ember);
+  }
+
+  @media (max-width: 900px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

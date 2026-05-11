@@ -1,0 +1,297 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/images/Logo.webp";
+
+export interface Props {
+  variant?: "transparent" | "solid";
+}
+
+const { variant = "transparent" } = Astro.props;
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/commissions", label: "Commissions" },
+  { href: "/about", label: "About" },
+];
+---
+
+<header class="site-nav" data-variant={variant}>
+  <div class="site-nav__inner">
+    <a href="/" class="site-nav__brand" aria-label="Lillico Art — home">
+      <Image
+        src={logo}
+        alt="Lillico Art"
+        width={56}
+        height={56}
+        loading="eager"
+        class="site-nav__logo"
+      />
+      <span class="site-nav__wordmark">Lillico Art</span>
+    </a>
+
+    <button
+      class="site-nav__toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+    >
+      <span></span><span></span>
+    </button>
+
+    <nav id="primary-nav" class="site-nav__menu" aria-label="Primary">
+      <ul>
+        {
+          links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class:list={["site-nav__link", { "is-active": isActive(l.href) }]}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/#contact" class="site-nav__link site-nav__link--cta">
+            Contact
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition:
+      background-color var(--duration-base) var(--ease-out-soft),
+      backdrop-filter var(--duration-base) var(--ease-out-soft),
+      border-color var(--duration-base) var(--ease-out-soft);
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-nav[data-scrolled="true"],
+  .site-nav[data-variant="solid"] {
+    background: color-mix(in oklab, var(--color-ink-900) 86%, transparent);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    border-bottom-color: var(--color-ink-800);
+  }
+
+  .site-nav__inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: 1rem clamp(1.25rem, 4vw, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .site-nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--color-ink-100);
+    text-decoration: none;
+  }
+
+  .site-nav__logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .site-nav__wordmark {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: 0.06em;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .site-nav__menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .site-nav__menu ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.4rem, 2.5vw, 2.6rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav__link {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-300);
+    position: relative;
+    padding: 0.4rem 0;
+    transition: color var(--duration-fast) var(--ease-out-soft);
+  }
+
+  .site-nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-ember);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duration-base) var(--ease-out-soft);
+  }
+
+  .site-nav__link:hover,
+  .site-nav__link.is-active {
+    color: var(--color-ink-50);
+  }
+
+  .site-nav__link:hover::after,
+  .site-nav__link.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .site-nav__link--cta {
+    padding: 0.55rem 1.2rem;
+    border: 1px solid var(--color-ink-600);
+    color: var(--color-ink-100);
+    transition: all var(--duration-base) var(--ease-out-soft);
+  }
+
+  .site-nav__link--cta::after {
+    display: none;
+  }
+
+  .site-nav__link--cta:hover {
+    background: var(--color-ember);
+    border-color: var(--color-ember);
+    color: var(--color-ink-950);
+  }
+
+  .site-nav__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .site-nav__toggle span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--color-ink-100);
+    transition: transform var(--duration-fast) var(--ease-out-soft);
+  }
+
+  /* — Mobile — */
+  @media (max-width: 768px) {
+    .site-nav__wordmark {
+      display: none;
+    }
+
+    .site-nav__toggle {
+      display: flex;
+    }
+
+    .site-nav__menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(86vw, 380px);
+      background: var(--color-ink-950);
+      transform: translateX(100%);
+      transition: transform var(--duration-base) var(--ease-in-out-soft);
+      padding: 6rem 2.5rem 2rem;
+      border-left: 1px solid var(--color-ink-800);
+    }
+
+    .site-nav__menu.is-open {
+      transform: translateX(0);
+    }
+
+    .site-nav__menu ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.6rem;
+    }
+
+    .site-nav__link {
+      font-size: 1rem;
+    }
+
+    .site-nav__toggle[aria-expanded="true"] span:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+    .site-nav__toggle[aria-expanded="true"] span:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  const initNav = () => {
+    const header = document.querySelector<HTMLElement>(".site-nav");
+    if (!header) return;
+
+    const onScroll = () => {
+      header.dataset.scrolled = String(window.scrollY > 20);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const toggle = header.querySelector<HTMLButtonElement>(".site-nav__toggle");
+    const menu = header.querySelector<HTMLElement>(".site-nav__menu");
+    if (!toggle || !menu) return;
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      menu.classList.toggle("is-open", open);
+      document.documentElement.style.overflow = open ? "hidden" : "";
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => setOpen(false))
+    );
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+  };
+
+  initNav();
+  document.addEventListener("astro:page-load", initNav);
+</script>
