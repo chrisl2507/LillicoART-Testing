@@ -8,105 +8,112 @@ import { commissionExamples } from "../data/artworks.ts";
 <BaseLayout
   title="Commissions — Lillico Art"
   description="Charcoal and graphite portrait commissions by Esme Lillico, from £150."
-  navVariant="solid"
 >
   <section class="page-head">
     <div class="container-page">
-      <p class="eyebrow eyebrow-ember" data-reveal>Commissions</p>
-      <h1 class="page-head__title" data-reveal style="--reveal-delay: 100ms">
-        Drawn for <em>you.</em>
-      </h1>
-      <p class="page-head__lede" data-reveal style="--reveal-delay: 200ms">
+      <p class="eyebrow">Commissions</p>
+      <h1 class="page-head__title">Drawn for You</h1>
+      <p class="page-head__lede">
         From <strong>£150</strong>. A single portrait can take three to six
         weeks to complete. Each one begins with a conversation.
       </p>
     </div>
   </section>
 
-  <section class="container-page commission-examples">
+  <section class="container-page commission-grid">
     {
       commissionExamples.map((p) => (
-        <figure class="commission-card" data-reveal>
-          <Image
-            src={p.image}
-            alt={p.alt}
-            widths={[400, 700, 1100]}
-            sizes="(min-width: 1024px) 33vw, 92vw"
-            loading="lazy"
-          />
+        <figure class="catalogue__item">
+          <div class="plate">
+            <Image
+              src={p.image}
+              alt={p.alt}
+              widths={[400, 700, 1100]}
+              sizes="(min-width: 1024px) 30vw, 92vw"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="label">
+            <p class="label__title">{p.title}</p>
+            <p class="label__meta">{p.medium}</p>
+          </figcaption>
         </figure>
       ))
     }
   </section>
 
   <section class="commission-cta container-narrow">
-    <p class="eyebrow eyebrow-ember" data-reveal>Begin a Commission</p>
-    <h2 data-reveal style="--reveal-delay: 100ms">
-      Tell me the <em>story.</em>
-    </h2>
-    <div data-reveal style="--reveal-delay: 200ms">
-      <ContactForm />
-    </div>
+    <header class="cta-head">
+      <p class="eyebrow">Begin a Commission</p>
+      <h2 class="cta-title">Tell me the story.</h2>
+    </header>
+    <ContactForm />
   </section>
 </BaseLayout>
 
 <style>
   .page-head {
-    padding: 10rem 0 var(--space-xl);
-    background: var(--color-ink-900);
-    text-align: center;
+    padding-top: 9rem;
+    padding-bottom: var(--space-xl);
+  }
+  .page-head .eyebrow {
+    margin: 0 0 1rem;
   }
   .page-head__title {
+    font-family: var(--font-display);
     font-size: var(--text-h1);
-    margin: 0.5rem 0 var(--space-md);
-  }
-  .page-head__title em {
-    font-style: italic;
-    color: var(--color-ember);
+    font-weight: 400;
+    margin: 0 0 var(--space-sm);
+    line-height: 1;
   }
   .page-head__lede {
-    margin: 0 auto;
-    max-width: 50ch;
-    font-family: var(--font-display);
-    color: var(--color-ink-300);
+    margin: 0;
+    color: var(--color-ink-muted);
     font-size: var(--text-lead);
+    max-width: 56ch;
     line-height: 1.55;
   }
   .page-head__lede strong {
-    color: var(--color-ember);
+    color: var(--color-ink);
     font-weight: 500;
   }
 
-  .commission-examples {
-    padding-block: var(--space-xl);
+  .commission-grid {
+    padding-bottom: var(--space-2xl);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 3vw, 3rem);
   }
-  .commission-card {
+  .catalogue__item {
     margin: 0;
-    overflow: hidden;
   }
-  .commission-card :global(img) {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
+  @media (max-width: 900px) {
+    .commission-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .commission-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .commission-cta {
     padding: var(--space-2xl) clamp(1.25rem, 4vw, 3rem);
+    border-top: 1px solid var(--color-rule);
+  }
+  .cta-head {
     text-align: center;
+    margin-bottom: var(--space-xl);
   }
-  .commission-cta .eyebrow {
+  .cta-head .eyebrow {
     display: inline-block;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
   }
-  .commission-cta h2 {
+  .cta-title {
+    font-family: var(--font-display);
     font-size: var(--text-h2);
-    margin: 0 0 var(--space-xl);
-  }
-  .commission-cta h2 em {
-    font-style: italic;
-    color: var(--color-ember);
+    font-weight: 400;
+    margin: 0;
   }
 </style>

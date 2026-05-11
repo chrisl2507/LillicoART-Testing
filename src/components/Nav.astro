@@ -1,13 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import logo from "../assets/images/Logo.webp";
 import { url } from "../utils/url.ts";
 
 export interface Props {
   variant?: "transparent" | "solid";
 }
 
-const { variant = "transparent" } = Astro.props;
+const { variant = "solid" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const stripBase = (p: string) =>
   base && p.startsWith(base) ? p.slice(base.length) || "/" : p;
@@ -26,15 +24,7 @@ const links = [
 <header class="site-nav" data-variant={variant}>
   <div class="site-nav__inner">
     <a href={url("/")} class="site-nav__brand" aria-label="Lillico Art — home">
-      <Image
-        src={logo}
-        alt="Lillico Art"
-        width={56}
-        height={56}
-        loading="eager"
-        class="site-nav__logo"
-      />
-      <span class="site-nav__wordmark">Lillico Art</span>
+      Lillico Art
     </a>
 
     <button
@@ -62,7 +52,7 @@ const links = [
         }
         <li>
           <a href={`${url("/")}#contact`} class="site-nav__link site-nav__link--cta">
-            Contact
+            Enquire
           </a>
         </li>
       </ul>
@@ -78,25 +68,36 @@ const links = [
     right: 0;
     z-index: 100;
     transition:
-      background-color var(--duration-base) var(--ease-out-soft),
-      backdrop-filter var(--duration-base) var(--ease-out-soft),
-      border-color var(--duration-base) var(--ease-out-soft);
+      background-color var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out),
+      color var(--duration-base) var(--ease-out);
     border-bottom: 1px solid transparent;
+    color: var(--color-ink);
   }
 
-  .site-nav[data-scrolled="true"],
+  /* Solid (default) — gallery white */
   .site-nav[data-variant="solid"] {
-    background: color-mix(in oklab, var(--color-ink-900) 86%, transparent);
-    backdrop-filter: blur(14px) saturate(1.1);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
-    border-bottom-color: var(--color-ink-800);
+    background: var(--color-paper);
+    border-bottom-color: var(--color-rule);
+  }
+
+  /* Transparent — only on home hero, flips to solid on scroll */
+  .site-nav[data-variant="transparent"] {
+    background: transparent;
+    color: #ffffff;
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+  }
+  .site-nav[data-variant="transparent"][data-scrolled="true"] {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border-bottom-color: var(--color-rule);
   }
 
   .site-nav__inner {
     width: 100%;
     max-width: var(--container-max);
     margin-inline: auto;
-    padding: 1rem clamp(1.25rem, 4vw, 3rem);
+    padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -104,26 +105,13 @@ const links = [
   }
 
   .site-nav__brand {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    color: var(--color-ink-100);
-    text-decoration: none;
-  }
-
-  .site-nav__logo {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .site-nav__wordmark {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    letter-spacing: 0.06em;
+    font-size: 1.35rem;
     font-weight: 400;
-    font-style: italic;
+    letter-spacing: 0.06em;
+    color: inherit;
+    text-decoration: none;
+    line-height: 1;
   }
 
   .site-nav__menu {
@@ -135,7 +123,7 @@ const links = [
   .site-nav__menu ul {
     display: flex;
     align-items: center;
-    gap: clamp(1.4rem, 2.5vw, 2.6rem);
+    gap: clamp(1.6rem, 2.6vw, 2.8rem);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -143,32 +131,33 @@ const links = [
 
   .site-nav__link {
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-ink-300);
+    color: inherit;
     position: relative;
     padding: 0.4rem 0;
-    transition: color var(--duration-fast) var(--ease-out-soft);
+    transition: opacity var(--duration-fast) var(--ease-out);
+    opacity: 0.78;
   }
 
   .site-nav__link::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 0;
-    width: 100%;
+    right: 0;
+    bottom: -2px;
     height: 1px;
-    background: var(--color-ember);
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform var(--duration-base) var(--ease-out-soft);
+    transition: transform var(--duration-base) var(--ease-out);
   }
 
   .site-nav__link:hover,
   .site-nav__link.is-active {
-    color: var(--color-ink-50);
+    opacity: 1;
   }
 
   .site-nav__link:hover::after,
@@ -178,20 +167,24 @@ const links = [
   }
 
   .site-nav__link--cta {
-    padding: 0.55rem 1.2rem;
-    border: 1px solid var(--color-ink-600);
-    color: var(--color-ink-100);
-    transition: all var(--duration-base) var(--ease-out-soft);
+    padding: 0.6rem 1.2rem;
+    border: 1px solid currentColor;
+    opacity: 1;
+    transition:
+      background-color var(--duration-base) var(--ease-out),
+      color var(--duration-base) var(--ease-out);
   }
-
   .site-nav__link--cta::after {
     display: none;
   }
-
-  .site-nav__link--cta:hover {
-    background: var(--color-ember);
-    border-color: var(--color-ember);
-    color: var(--color-ink-950);
+  .site-nav[data-variant="solid"] .site-nav__link--cta:hover,
+  .site-nav[data-variant="transparent"][data-scrolled="true"] .site-nav__link--cta:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .site-nav[data-variant="transparent"]:not([data-scrolled="true"]) .site-nav__link--cta:hover {
+    background: #ffffff;
+    color: var(--color-ink);
   }
 
   .site-nav__toggle {
@@ -206,22 +199,18 @@ const links = [
     justify-content: center;
     align-items: center;
     gap: 6px;
+    color: inherit;
   }
 
   .site-nav__toggle span {
     display: block;
     width: 22px;
     height: 1px;
-    background: var(--color-ink-100);
-    transition: transform var(--duration-fast) var(--ease-out-soft);
+    background: currentColor;
+    transition: transform var(--duration-fast) var(--ease-out);
   }
 
-  /* — Mobile — */
   @media (max-width: 768px) {
-    .site-nav__wordmark {
-      display: none;
-    }
-
     .site-nav__toggle {
       display: flex;
     }
@@ -231,12 +220,13 @@ const links = [
       top: 0;
       right: 0;
       bottom: 0;
-      width: min(86vw, 380px);
-      background: var(--color-ink-950);
+      width: min(86vw, 360px);
+      background: var(--color-paper);
+      color: var(--color-ink);
       transform: translateX(100%);
-      transition: transform var(--duration-base) var(--ease-in-out-soft);
+      transition: transform var(--duration-base) var(--ease-out);
       padding: 6rem 2.5rem 2rem;
-      border-left: 1px solid var(--color-ink-800);
+      border-left: 1px solid var(--color-rule);
     }
 
     .site-nav__menu.is-open {
@@ -250,7 +240,8 @@ const links = [
     }
 
     .site-nav__link {
-      font-size: 1rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
     }
 
     .site-nav__toggle[aria-expanded="true"] span:first-child {
@@ -267,11 +258,13 @@ const links = [
     const header = document.querySelector<HTMLElement>(".site-nav");
     if (!header) return;
 
-    const onScroll = () => {
-      header.dataset.scrolled = String(window.scrollY > 20);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    if (header.dataset.variant === "transparent") {
+      const onScroll = () => {
+        header.dataset.scrolled = String(window.scrollY > 20);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
 
     const toggle = header.querySelector<HTMLButtonElement>(".site-nav__toggle");
     const menu = header.querySelector<HTMLElement>(".site-nav__menu");

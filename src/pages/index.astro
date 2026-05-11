@@ -6,18 +6,19 @@ import { featuredArtworks, artworks } from "../data/artworks.ts";
 import { url } from "../utils/url.ts";
 
 const hero = artworks.find((a) => a.slug === "masculinity")!;
-const enPointe = artworks.find((a) => a.slug === "en-pointe")!;
-const adorned = artworks.find((a) => a.slug === "adorned")!;
+const portrait = artworks.find((a) => a.slug === "en-pointe")!;
+
+// Take 4 pieces for the 2x2 home grid
+const selected = featuredArtworks.slice(0, 4);
 ---
 
 <BaseLayout
   title="Charcoal Portrait Artist, Suffolk | Esme Lillico — Lillico Art"
   description="Hand-drawn charcoal and graphite portraits by Esme Lillico, based in Suffolk. Taking commissions across East Anglia — Ipswich, Cambridge, Colchester and beyond."
   ogImage="/og-default.webp"
+  navVariant="transparent"
 >
-  {/* ============================================================
-       HERO — A portrait emerging from the page.
-       ============================================================ */}
+  {/* ======================== HERO ======================== */}
   <section class="hero">
     <div class="hero__media">
       <Image
@@ -29,255 +30,149 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
         fetchpriority="high"
         class="hero__image"
       />
-      <div class="hero__vignette" aria-hidden="true"></div>
+      <div class="hero__scrim" aria-hidden="true"></div>
     </div>
 
     <div class="hero__content container-page">
-      <p class="eyebrow eyebrow-ember" data-reveal style="--reveal-delay: 200ms">
-        Charcoal Portraiture &middot; Suffolk
-      </p>
-
-      <div class="hero__rule" aria-hidden="true" data-reveal style="--reveal-delay: 400ms"></div>
-
-      <h1 class="sr-only">
-        Esme Lillico — Charcoal &amp; Graphite Portrait Artist, Suffolk
-      </h1>
-
-      <p class="hero__display" aria-hidden="true">
-        <span class="hero__word" data-reveal style="--reveal-delay: 600ms">Drawn</span>
-        <span class="hero__sub">
-          <em data-reveal style="--reveal-delay: 900ms">by hand.</em>
-          <em data-reveal style="--reveal-delay: 1100ms">in Suffolk.</em>
-        </span>
-      </p>
-    </div>
-
-    <a href="#manifesto" class="hero__scroll" aria-label="Scroll to read more">
-      <span class="hero__scroll-line"></span>
-      <span class="hero__scroll-label">Scroll</span>
-    </a>
-  </section>
-
-  {/* ============================================================
-       MANIFESTO — single line that sets the tone.
-       ============================================================ */}
-  <section class="manifesto" id="manifesto">
-    <div class="container-narrow">
-      <p class="manifesto__lede" data-reveal="up-lg">
-        I work in <em>charcoal</em> &amp; <em>graphite</em> because nothing else
-        gives me the same range — from the deepest black to the softest whisper
-        of grey.
-      </p>
-      <p class="manifesto__byline" data-reveal style="--reveal-delay: 300ms">
-        <span class="hairline-mini"></span>
-        Esme Lillico, Portrait Artist
-      </p>
+      <p class="hero__eyebrow">Esme Lillico</p>
+      <h1 class="hero__title">Charcoal Portrait Commissions</h1>
+      <p class="hero__sub">Suffolk &middot; Working across East Anglia</p>
     </div>
   </section>
 
-  {/* ============================================================
-       FEATURED WORK — editorial spread, alternating sides.
-       Each piece gets a full canvas-width moment.
-       ============================================================ */}
-  <section class="featured" aria-labelledby="featured-heading">
-    <header class="featured__header container-page">
-      <p class="eyebrow eyebrow-ember" data-reveal>Selected Work</p>
-      <h2 id="featured-heading" class="featured__title" data-reveal style="--reveal-delay: 150ms">
-        Pieces from the <em>studio.</em>
-      </h2>
-    </header>
-
-    <div class="featured__list">
-      {
-        featuredArtworks.map((piece, i) => (
-          <article
-            class="featured-piece"
-            data-side={i % 2 === 0 ? "left" : "right"}
-          >
-            <div class="featured-piece__image" data-reveal="up-lg">
-              <Image
-                src={piece.image}
-                alt={piece.alt}
-                widths={[480, 768, 1200]}
-                sizes="(min-width: 1024px) 55vw, 92vw"
-                loading="lazy"
-              />
-              <span class="featured-piece__index" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div class="featured-piece__caption" data-reveal style="--reveal-delay: 200ms">
-              <p class="eyebrow">No. {String(i + 1).padStart(2, "0")}</p>
-              <h3 class="featured-piece__name">{piece.title}</h3>
-              <p class="featured-piece__meta">
-                {piece.medium} &middot; {piece.dimensions}
-              </p>
-              {piece.description && (
-                <p class="featured-piece__desc">{piece.description}</p>
-              )}
-            </div>
-          </article>
-        ))
-      }
-    </div>
-
-    <div class="featured__footer container-page" data-reveal>
-      <a href={url("/gallery")} class="btn">
-        View the full gallery
-        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
-  </section>
-
-  {/* ============================================================
-       ARTIST — Image left, text right, asymmetric.
-       ============================================================ */}
-  <section class="artist">
-    <div class="container-page artist__inner">
-      <div class="artist__image" data-reveal="up-lg">
-        <Image
-          src={enPointe.image}
-          alt="A charcoal portrait study"
-          widths={[480, 768, 1100]}
-          sizes="(min-width: 900px) 45vw, 92vw"
-          loading="lazy"
-        />
-      </div>
-
-      <div class="artist__text">
-        <p class="eyebrow eyebrow-ember" data-reveal>The Artist</p>
-        <h2 class="artist__name" data-reveal style="--reveal-delay: 100ms">
-          Esme <em>Lillico.</em>
-        </h2>
-        <div data-reveal style="--reveal-delay: 250ms">
-          <p>
-            I work in charcoal and graphite because nothing else gives me the
-            same range — from the deepest black to the softest whisper of grey.
-            That range lets me chase what I'm really after: the quiet,
-            unguarded moments that reveal who someone truly is.
-          </p>
-          <p>
-            My work has been exhibited in galleries in Halifax and Sheffield,
-            and featured by <a
-              class="link-ember"
-              href="https://www.collectartwork.org/post/esme-lillico-figurative-art"
-              target="_blank"
-              rel="noopener noreferrer">Collect Art</a
-            >. Every portrait is a conversation between mark and meaning —
-            identity, intimacy, and the stories that sit just beneath the
-            surface.
-          </p>
-          <a href={url("/about")} class="link-ember artist__link">
-            Read the full story &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ============================================================
-       PROCESS — three steps, hairline-separated.
-       ============================================================ */}
-  <section class="process">
-    <div class="container-narrow">
-      <header class="process__header">
-        <p class="eyebrow eyebrow-ember" data-reveal>The Process</p>
-        <h2 class="process__title" data-reveal style="--reveal-delay: 100ms">
-          Every portrait begins with a <em>conversation.</em>
-        </h2>
+  {/* ==================== SELECTED WORKS ==================== */}
+  <section class="section section--selected">
+    <div class="container-page">
+      <header class="section__head">
+        <p class="eyebrow">Selected Works</p>
+        <h2 class="section__title">Recent Pieces</h2>
       </header>
 
-      <ol class="process__steps">
-        <li class="process-step" data-reveal>
-          <span class="process-step__number">i</span>
-          <div>
-            <h3 class="process-step__title">We speak.</h3>
-            <p class="process-step__body">
-              We talk through the subject — who they are, the moment you want
-              held, the size and feel of the piece. Reference photographs are
-              shared and chosen together.
-            </p>
-          </div>
-        </li>
+      <div class="catalogue catalogue--two">
+        {
+          selected.map((piece) => (
+            <figure class="catalogue__item">
+              <div class="plate">
+                <Image
+                  src={piece.image}
+                  alt={piece.alt}
+                  widths={[480, 768, 1100]}
+                  sizes="(min-width: 900px) 45vw, 92vw"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption class="label">
+                <p class="label__title">{piece.title}</p>
+                <p class="label__meta">{piece.medium}</p>
+                <p class="label__meta">{piece.dimensions}</p>
+                {piece.exhibited && (
+                  <p class="label__exhibited">
+                    <em>Exhibited:</em> {piece.exhibited}
+                  </p>
+                )}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
 
-        <li class="process-step" data-reveal style="--reveal-delay: 150ms">
-          <span class="process-step__number">ii</span>
-          <div>
-            <h3 class="process-step__title">The studio.</h3>
-            <p class="process-step__body">
-              Drawn by hand in charcoal or graphite over several weeks. You'll
-              receive progress images and have space to give thoughts as the
-              work unfolds.
-            </p>
-          </div>
-        </li>
-
-        <li class="process-step" data-reveal style="--reveal-delay: 300ms">
-          <span class="process-step__number">iii</span>
-          <div>
-            <h3 class="process-step__title">The piece arrives.</h3>
-            <p class="process-step__body">
-              Carefully packaged and dispatched, ready to frame. Local
-              hand-delivery available across East Anglia.
-            </p>
-          </div>
-        </li>
-      </ol>
-
-      <div class="process__cta" data-reveal>
-        <a href={url("/commissions")} class="btn btn-ember">
-          Learn about commissions
-          <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-        </a>
+      <div class="section__foot">
+        <a href={url("/gallery")} class="btn btn-ghost">View the full catalogue</a>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-       SECOND PORTRAIT — visual breathing room before contact.
-       ============================================================ */}
-  <section class="interlude">
-    <div class="interlude__image" data-reveal>
-      <Image
-        src={adorned.image}
-        alt={adorned.alt}
-        widths={[640, 1024, 1600]}
-        sizes="100vw"
-        loading="lazy"
-      />
-    </div>
-    <div class="interlude__quote">
-      <p data-reveal>
-        <em>"A conversation between mark and meaning."</em>
-      </p>
+  {/* ==================== ABOUT (compressed) ==================== */}
+  <section class="section section--about">
+    <div class="container-page about">
+      <div class="about__image">
+        <div class="plate">
+          <Image
+            src={portrait.image}
+            alt={portrait.alt}
+            widths={[400, 700, 900]}
+            sizes="(min-width: 900px) 38vw, 92vw"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="about__text">
+        <p class="eyebrow">The Artist</p>
+        <h2 class="about__name">Esme Lillico</h2>
+        <p>
+          I'm a charcoal and graphite portrait artist based in Suffolk, working
+          across East Anglia and the United Kingdom. My practice is rooted in
+          the quiet moment — the way a face settles when it forgets it is
+          being watched.
+        </p>
+        <p>
+          My work has been exhibited at Open Gallery, Halifax and Fronteer
+          Gallery, Sheffield, and featured by <a
+            class="link-underline"
+            href="https://www.collectartwork.org/post/esme-lillico-figurative-art"
+            target="_blank"
+            rel="noopener noreferrer">Collect Art</a
+          >.
+        </p>
+        <p class="about__more">
+          <a href={url("/about")} class="link-underline">Read more about the practice</a>
+        </p>
+      </div>
     </div>
   </section>
 
-  {/* ============================================================
-       CONTACT — minimal, hairline-underlined.
-       ============================================================ */}
-  <section class="contact" id="contact">
+  {/* ==================== COMMISSIONING ==================== */}
+  <section class="section section--commission">
+    <div class="container-page">
+      <header class="section__head section__head--center">
+        <p class="eyebrow">Commissioning</p>
+        <h2 class="section__title">Every portrait begins with a conversation.</h2>
+      </header>
+
+      <div class="steps">
+        <div class="step">
+          <p class="step__title">Conversation</p>
+          <p class="step__body">
+            We discuss the subject, the occasion, and the size of the piece.
+            Reference photographs are shared and chosen together.
+          </p>
+        </div>
+        <div class="step">
+          <p class="step__title">The Studio</p>
+          <p class="step__body">
+            Drawn by hand in charcoal or graphite over several weeks. You
+            receive progress images and have space to give thoughts as the
+            work unfolds.
+          </p>
+        </div>
+        <div class="step">
+          <p class="step__title">Delivery</p>
+          <p class="step__body">
+            Carefully packaged and dispatched, ready to frame. Local
+            hand-delivery is available across East Anglia.
+          </p>
+        </div>
+      </div>
+
+      <div class="section__foot">
+        <a href={url("/commissions")} class="btn">Learn about commissions</a>
+      </div>
+    </div>
+  </section>
+
+  {/* ==================== CONTACT ==================== */}
+  <section class="section section--contact" id="contact">
     <div class="container-narrow">
-      <header class="contact__header">
-        <p class="eyebrow eyebrow-ember" data-reveal>Get in Touch</p>
-        <h2 class="contact__title" data-reveal style="--reveal-delay: 100ms">
-          <em>Begin.</em>
-        </h2>
-        <p class="contact__lede" data-reveal style="--reveal-delay: 200ms">
-          Every portrait starts with a conversation.<br />
-          Tell me about yours.
+      <header class="section__head section__head--center">
+        <p class="eyebrow">Get in Touch</p>
+        <h2 class="section__title">Begin a Commission</h2>
+        <p class="section__lede">
+          I read every enquiry myself. You'll hear back within a few days,
+          often sooner.
         </p>
       </header>
 
-      <div data-reveal style="--reveal-delay: 300ms">
-        <ContactForm />
-      </div>
-
-      <p class="contact__location" data-reveal style="--reveal-delay: 400ms">
-        <span class="hairline-mini"></span>
-        Studio based in Suffolk, UK &middot; Working across East Anglia
-      </p>
+      <ContactForm />
     </div>
   </section>
 </BaseLayout>
@@ -288,11 +183,11 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
      ============================================================ */
   .hero {
     position: relative;
-    min-height: 100svh;
+    min-height: 88svh;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    background: var(--color-ink-950);
+    background: var(--color-ink);
   }
 
   .hero__media {
@@ -306,541 +201,198 @@ const adorned = artworks.find((a) => a.slug === "adorned")!;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 30%;
-    filter: brightness(0.82) contrast(1.04);
-    animation: hero-zoom 14s var(--ease-out-soft) forwards;
+    object-position: center 28%;
   }
 
-  @keyframes hero-zoom {
-    from { transform: scale(1.08); }
-    to   { transform: scale(1.0); }
-  }
-
-  .hero__vignette {
+  .hero__scrim {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 40%, transparent 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.7) 100%),
-      linear-gradient(to bottom, transparent 30%, rgba(11,11,12,0.4) 65%, var(--color-ink-900) 100%);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.15) 45%,
+      transparent 70%
+    );
   }
 
   .hero__content {
     position: relative;
     z-index: 2;
-    padding-bottom: clamp(4rem, 9vh, 8rem);
+    padding-bottom: clamp(3rem, 7vh, 6rem);
     padding-top: 8rem;
+    color: #ffffff;
   }
 
-  .hero__rule {
-    width: 64px;
-    height: 1px;
-    background: var(--color-ember);
-    margin: var(--space-sm) 0 var(--space-md);
-    transform-origin: left;
+  .hero__eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 1.4rem;
   }
 
-  .hero__display {
+  .hero__title {
     font-family: var(--font-display);
-    color: var(--color-ink-50);
-    margin: 0;
-    line-height: 0.88;
-    letter-spacing: -0.025em;
-    max-width: none;
-  }
-
-  .hero__word {
-    display: block;
-    font-size: clamp(4rem, 4rem + 8vw, 13rem);
-    font-weight: 300;
-    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 1.4rem + 2.4vw, 3.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    color: #ffffff;
+    margin: 0 0 1.2rem;
+    max-width: 18ch;
   }
 
   .hero__sub {
-    display: block;
-    margin-top: clamp(0.4rem, 1vw, 1rem);
-    color: var(--color-ink-200);
-  }
-
-  .hero__sub em {
-    display: block;
-    font-size: clamp(1.8rem, 1.4rem + 2.5vw, 3.4rem);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.05;
-  }
-
-  .hero__scroll {
-    position: absolute;
-    right: clamp(1.5rem, 4vw, 3rem);
-    bottom: clamp(2rem, 5vh, 4rem);
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.7rem;
-    color: var(--color-ink-300);
-    text-decoration: none;
-  }
-
-  .hero__scroll-line {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-ember) 30%,
-      var(--color-ember) 100%
-    );
-    animation: scroll-pulse 2.6s var(--ease-in-out-soft) infinite;
-    transform-origin: top;
-  }
-
-  @keyframes scroll-pulse {
-    0%, 100% { transform: scaleY(0.5); opacity: 0.4; }
-    50%      { transform: scaleY(1); opacity: 1; }
-  }
-
-  .hero__scroll-label {
     font-family: var(--font-body);
-    font-size: 0.68rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--color-ink-400);
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-  }
-
-  @media (max-width: 640px) {
-    .hero__scroll { display: none; }
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
   }
 
   /* ============================================================
-     MANIFESTO
+     SECTIONS
      ============================================================ */
-  .manifesto {
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    background: var(--color-ink-900);
-    text-align: center;
+  .section {
+    padding-block: var(--space-2xl);
+  }
+  .section--selected {
+    padding-top: var(--space-2xl);
+  }
+  .section--about {
+    padding-block: var(--space-2xl);
+    background: var(--color-paper);
+  }
+  .section--commission {
+    padding-block: var(--space-2xl);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .section--contact {
+    padding-block: var(--space-2xl);
   }
 
-  .manifesto__lede {
+  .section__head {
+    margin-bottom: var(--space-xl);
+  }
+  .section__head--center {
+    text-align: center;
+  }
+  .section__head--center .eyebrow {
+    display: inline-block;
+  }
+
+  .section__head .eyebrow {
+    margin: 0 0 1rem;
+  }
+
+  .section__title {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 1.1rem + 2.2vw, 3rem);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    color: var(--color-ink-100);
-    margin: 0 auto;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    margin: 0;
     max-width: 22ch;
-    font-weight: 300;
   }
-
-  .manifesto__lede em {
-    color: var(--color-ember);
-    font-style: italic;
-  }
-
-  .manifesto__byline {
-    margin: var(--space-lg) auto 0;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-ink-500);
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    max-width: none;
-  }
-
-  .hairline-mini {
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: var(--color-ink-700);
-  }
-
-  /* ============================================================
-     FEATURED
-     ============================================================ */
-  .featured {
-    padding: var(--space-2xl) 0;
-    background: var(--color-ink-900);
-  }
-
-  .featured__header {
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-  }
-
-  .featured__header .eyebrow {
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  .featured__title {
-    font-size: var(--text-h2);
-    margin: 0;
-  }
-
-  .featured__title em {
-    font-style: italic;
-    color: var(--color-ember);
-  }
-
-  .featured__list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
-  }
-
-  .featured-piece {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(2rem, 4vw, 5rem);
-    max-width: var(--container-max);
+  .section__head--center .section__title {
     margin-inline: auto;
-    padding-inline: clamp(1.25rem, 4vw, 3rem);
   }
 
-  .featured-piece[data-side="right"] {
-    direction: rtl;
-  }
-  .featured-piece[data-side="right"] > * {
-    direction: ltr;
-  }
-
-  .featured-piece__image {
-    position: relative;
-  }
-
-  .featured-piece__image :global(img) {
-    width: 100%;
-    height: auto;
-    display: block;
-    box-shadow:
-      0 30px 60px -20px rgba(0, 0, 0, 0.7),
-      0 1px 0 0 rgba(255, 255, 255, 0.03);
-    transition: transform var(--duration-slow) var(--ease-out-soft);
-  }
-
-  .featured-piece__image:hover :global(img) {
-    transform: scale(1.015);
-  }
-
-  .featured-piece__index {
-    position: absolute;
-    top: -2rem;
-    left: -1rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(4rem, 6vw, 7rem);
-    color: var(--color-ember);
-    opacity: 0.18;
-    font-weight: 300;
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .featured-piece[data-side="right"] .featured-piece__index {
-    left: auto;
-    right: -1rem;
-  }
-
-  .featured-piece__caption {
-    padding: var(--space-md) 0;
-  }
-
-  .featured-piece__caption .eyebrow {
-    color: var(--color-ember);
-    margin-bottom: var(--space-sm);
-  }
-
-  .featured-piece__name {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 1.4rem + 2.5vw, 3.6rem);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.05;
-    margin: 0 0 var(--space-xs);
-    color: var(--color-ink-50);
-  }
-
-  .featured-piece__meta {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-ink-500);
-    margin: 0 0 var(--space-md);
-  }
-
-  .featured-piece__desc {
+  .section__lede {
+    margin: var(--space-md) auto 0;
+    color: var(--color-ink-muted);
     font-size: var(--text-lead);
-    line-height: 1.55;
-    color: var(--color-ink-300);
-    max-width: 38ch;
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 300;
+    max-width: 42ch;
   }
 
-  .featured__footer {
-    margin-top: var(--space-2xl);
-    text-align: center;
-  }
-
-  @media (max-width: 900px) {
-    .featured-piece {
-      grid-template-columns: 1fr;
-      gap: var(--space-md);
-    }
-    .featured-piece[data-side="right"] {
-      direction: ltr;
-    }
-    .featured-piece__index {
-      font-size: 5rem;
-    }
-  }
-
-  /* ============================================================
-     ARTIST
-     ============================================================ */
-  .artist {
-    padding: var(--space-3xl) 0;
-    background: var(--color-ink-950);
-    position: relative;
-  }
-
-  .artist__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    gap: clamp(2.5rem, 5vw, 6rem);
-    align-items: center;
-  }
-
-  .artist__image :global(img) {
-    width: 100%;
-    height: auto;
-    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
-  }
-
-  .artist__name {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 1.6rem + 4vw, 5.5rem);
-    font-weight: 300;
-    line-height: 1;
-    margin: 1rem 0 var(--space-md);
-    letter-spacing: -0.02em;
-    color: var(--color-ink-50);
-  }
-
-  .artist__name em {
-    font-style: italic;
-    color: var(--color-ember);
-  }
-
-  .artist__text p {
-    color: var(--color-ink-300);
-    margin: 0 0 1.2rem;
-    max-width: 50ch;
-    line-height: 1.75;
-  }
-
-  .artist__link {
-    display: inline-block;
-    margin-top: var(--space-sm);
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 900px) {
-    .artist__inner {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* ============================================================
-     PROCESS
-     ============================================================ */
-  .process {
-    padding: var(--space-3xl) 0;
-    background: var(--color-ink-900);
-  }
-
-  .process__header {
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-  }
-
-  .process__header .eyebrow {
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  .process__title {
-    font-size: var(--text-h2);
-    margin: 0 auto;
-    max-width: 16ch;
-  }
-
-  .process__title em {
-    font-style: italic;
-    color: var(--color-ember);
-  }
-
-  .process__steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .process-step {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 2rem;
-    padding: var(--space-lg) 0;
-    border-top: 1px solid var(--color-ink-800);
-    align-items: baseline;
-  }
-
-  .process-step:last-child {
-    border-bottom: 1px solid var(--color-ink-800);
-  }
-
-  .process-step__number {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(2rem, 3vw, 3rem);
-    color: var(--color-ember);
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  .process-step__title {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
-    font-style: italic;
-    font-weight: 300;
-    margin: 0 0 0.6rem;
-    color: var(--color-ink-50);
-  }
-
-  .process-step__body {
-    color: var(--color-ink-400);
-    margin: 0;
-    max-width: 55ch;
-    line-height: 1.7;
-  }
-
-  .process__cta {
+  .section__foot {
     margin-top: var(--space-xl);
     text-align: center;
   }
 
-  @media (max-width: 640px) {
-    .process-step {
+  /* ============================================================
+     CATALOGUE GRID
+     ============================================================ */
+  .catalogue {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem);
+  }
+  .catalogue--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalogue__item {
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .catalogue--two {
       grid-template-columns: 1fr;
-      gap: 0.8rem;
     }
   }
 
   /* ============================================================
-     INTERLUDE
+     ABOUT
      ============================================================ */
-  .interlude {
-    position: relative;
-    background: var(--color-ink-950);
-    overflow: hidden;
-  }
-
-  .interlude__image {
-    position: relative;
-  }
-
-  .interlude__image :global(img) {
-    width: 100%;
-    height: clamp(50vh, 70vh, 80vh);
-    object-fit: cover;
-    object-position: center 25%;
-    filter: brightness(0.55);
-  }
-
-  .interlude__quote {
-    position: absolute;
-    inset: 0;
+  .about {
     display: grid;
-    place-items: center;
-    pointer-events: none;
-    padding: 2rem;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
   }
-
-  .interlude__quote p {
+  .about__image .plate {
+    aspect-ratio: 4 / 5;
+  }
+  .about__name {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 1.3rem + 2.5vw, 3.4rem);
-    color: var(--color-ink-50);
-    text-align: center;
-    max-width: 22ch;
-    line-height: 1.2;
-    font-weight: 300;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.6);
-    margin: 0;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    margin: 0.6rem 0 var(--space-md);
+    line-height: 1.05;
+  }
+  .about__text p {
+    color: var(--color-ink);
+    margin: 0 0 1.1rem;
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+  .about__more {
+    margin-top: var(--space-sm) !important;
+  }
+  @media (max-width: 900px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ============================================================
-     CONTACT
+     COMMISSIONING STEPS
      ============================================================ */
-  .contact {
-    padding: var(--space-3xl) 0;
-    background: var(--color-ink-900);
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 4rem);
   }
-
-  .contact__header {
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-  }
-
-  .contact__header .eyebrow {
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  .contact__title {
-    font-size: var(--text-h1);
-    margin: 0;
-  }
-
-  .contact__title em {
-    font-style: italic;
-    color: var(--color-ember);
-  }
-
-  .contact__lede {
-    margin: var(--space-md) auto 0;
-    max-width: 36ch;
-    color: var(--color-ink-400);
-    font-size: var(--text-lead);
+  .step__title {
     font-family: var(--font-display);
-    line-height: 1.45;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0 0 0.7rem;
+    color: var(--color-ink);
   }
-
-  .contact__location {
-    margin: var(--space-xl) auto 0;
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-ink-500);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    max-width: none;
+  .step__body {
+    color: var(--color-ink-muted);
+    margin: 0;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    max-width: 36ch;
+  }
+  @media (max-width: 720px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
   }
 </style>

@@ -6,39 +6,39 @@ import { galleryArtworks } from "../data/artworks.ts";
 
 <BaseLayout
   title="Gallery — Lillico Art"
-  description="Selected charcoal and graphite portraits by Esme Lillico."
-  navVariant="solid"
+  description="A catalogue of selected charcoal and graphite portraits by Esme Lillico."
 >
   <section class="page-head">
     <div class="container-page">
-      <p class="eyebrow eyebrow-ember" data-reveal>The Gallery</p>
-      <h1 class="page-head__title" data-reveal style="--reveal-delay: 100ms">
-        Selected <em>works.</em>
-      </h1>
-      <p class="page-head__lede" data-reveal style="--reveal-delay: 200ms">
+      <p class="eyebrow">The Catalogue</p>
+      <h1 class="page-head__title">Selected Works</h1>
+      <p class="page-head__lede">
         A scrolling catalogue of original charcoal and graphite portraits.
       </p>
     </div>
   </section>
 
-  <section class="gallery-grid container-page">
+  <section class="container-page catalogue catalogue--three">
     {
       galleryArtworks.map((piece) => (
-        <figure class="gallery-card" data-reveal>
-          <Image
-            src={piece.image}
-            alt={piece.alt}
-            widths={[400, 700, 1100]}
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 92vw"
-            loading="lazy"
-          />
-          <figcaption>
-            <p class="gallery-card__title">{piece.title}</p>
-            <p class="gallery-card__meta">
-              {piece.medium} &middot; {piece.dimensions}
-            </p>
+        <figure class="catalogue__item">
+          <div class="plate">
+            <Image
+              src={piece.image}
+              alt={piece.alt}
+              widths={[400, 700, 1100]}
+              sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="label">
+            <p class="label__title">{piece.title}</p>
+            <p class="label__meta">{piece.medium}</p>
+            <p class="label__meta">{piece.dimensions}</p>
             {piece.exhibited && (
-              <p class="gallery-card__exhibited">Exhibited &middot; {piece.exhibited}</p>
+              <p class="label__exhibited">
+                <em>Exhibited:</em> {piece.exhibited}
+              </p>
             )}
           </figcaption>
         </figure>
@@ -49,75 +49,46 @@ import { galleryArtworks } from "../data/artworks.ts";
 
 <style>
   .page-head {
-    padding: 10rem 0 var(--space-xl);
-    background: var(--color-ink-900);
-    text-align: center;
+    padding-top: 9rem;
+    padding-bottom: var(--space-xl);
+  }
+  .page-head .eyebrow {
+    margin: 0 0 1rem;
   }
   .page-head__title {
+    font-family: var(--font-display);
     font-size: var(--text-h1);
-    margin: 0.5rem 0 var(--space-md);
-  }
-  .page-head__title em {
-    font-style: italic;
-    color: var(--color-ember);
+    font-weight: 400;
+    margin: 0 0 var(--space-sm);
+    line-height: 1;
   }
   .page-head__lede {
-    margin: 0 auto;
-    max-width: 42ch;
-    font-family: var(--font-display);
-    color: var(--color-ink-400);
+    margin: 0;
+    color: var(--color-ink-muted);
     font-size: var(--text-lead);
+    max-width: 50ch;
   }
 
-  .gallery-grid {
-    padding-block: var(--space-xl) var(--space-2xl);
+  .catalogue {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-    gap: clamp(1.2rem, 2vw, 2rem);
+    gap: clamp(2.5rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+    padding-bottom: var(--space-2xl);
+  }
+  .catalogue--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .catalogue__item {
+    margin: 0;
   }
 
-  .gallery-card {
-    margin: 0;
-    background: var(--color-ink-850);
-    overflow: hidden;
-    transition: transform var(--duration-base) var(--ease-out-soft);
+  @media (max-width: 980px) {
+    .catalogue--three {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
-  .gallery-card:hover {
-    transform: translateY(-4px);
-  }
-  .gallery-card :global(img) {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    transition: transform var(--duration-slow) var(--ease-out-soft);
-  }
-  .gallery-card:hover :global(img) {
-    transform: scale(1.03);
-  }
-  .gallery-card figcaption {
-    padding: var(--space-md);
-  }
-  .gallery-card__title {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.4rem;
-    margin: 0 0 0.3rem;
-    color: var(--color-ink-50);
-  }
-  .gallery-card__meta {
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-ink-500);
-    margin: 0;
-  }
-  .gallery-card__exhibited {
-    margin: 0.5rem 0 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-ember);
+  @media (max-width: 600px) {
+    .catalogue--three {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
