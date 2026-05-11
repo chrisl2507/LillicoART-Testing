@@ -48,7 +48,7 @@ import { url } from "../utils/url.ts";
 
   <div class="field">
     <label for="cf-subject" class="eyebrow">Enquiry Type</label>
-    <select class="field-input" id="cf-subject" name="subject">
+    <select class="field-select" id="cf-subject" name="subject">
       <option value="commission">A new commission</option>
       <option value="question">A question about your work</option>
       <option value="exhibition">Exhibition or press</option>
@@ -57,7 +57,7 @@ import { url } from "../utils/url.ts";
   </div>
 
   <div class="field">
-    <label for="cf-message" class="eyebrow">Tell me the story</label>
+    <label for="cf-message" class="eyebrow">Message</label>
     <textarea
       class="field-textarea"
       id="cf-message"
@@ -68,10 +68,7 @@ import { url } from "../utils/url.ts";
     ></textarea>
   </div>
 
-  <button type="submit" class="btn btn-ember">
-    Send Message
-    <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-  </button>
+  <button type="submit" class="btn">Send Message</button>
 </form>
 
 <style>
@@ -101,11 +98,17 @@ import { url } from "../utils/url.ts";
     opacity: 0;
   }
 
-  select.field-input {
+  .field-select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b8845a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1a1a' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.5rem center;
+    background-position: right 0.4rem center;
     padding-right: 1.8rem;
+  }
+
+  /* Submit button — full width on mobile, auto on desktop */
+  .contact-form button[type="submit"] {
+    align-self: flex-start;
+    margin-top: var(--space-xs);
   }
 </style>

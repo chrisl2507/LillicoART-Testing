@@ -7,12 +7,15 @@ const year = new Date().getFullYear();
   <div class="site-footer__inner">
     <div class="site-footer__brand">
       <p class="site-footer__mark">Lillico Art</p>
-      <p class="site-footer__tag">Charcoal &amp; graphite portraiture, Suffolk.</p>
+      <p class="site-footer__tag">
+        Charcoal &amp; graphite portrait commissions.<br />
+        Suffolk, United Kingdom.
+      </p>
     </div>
 
     <nav class="site-footer__nav" aria-label="Footer">
       <div>
-        <p class="eyebrow">Explore</p>
+        <p class="eyebrow">Studio</p>
         <ul>
           <li><a href={url("/")}>Home</a></li>
           <li><a href={url("/gallery")}>Gallery</a></li>
@@ -37,30 +40,27 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div>
-        <p class="eyebrow">Studio</p>
+        <p class="eyebrow">Legal</p>
         <ul>
-          <li>Suffolk, United Kingdom</li>
           <li><a href={url("/privacy")}>Privacy Policy</a></li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <div class="site-footer__rule"></div>
-
   <div class="site-footer__legal">
     <p>&copy; {year} Lillico Art. All rights reserved.</p>
-    <p class="site-footer__credit">Drawn by hand &middot; built with care.</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
     margin-top: var(--space-3xl);
-    background: var(--color-ink-950);
-    color: var(--color-ink-400);
+    background: var(--color-surface);
+    color: var(--color-ink-muted);
     padding-top: var(--space-xl);
     padding-bottom: var(--space-md);
+    border-top: 1px solid var(--color-rule);
   }
 
   .site-footer__inner {
@@ -75,22 +75,22 @@ const year = new Date().getFullYear();
   }
 
   .site-footer__brand {
-    max-width: 28ch;
+    max-width: 30ch;
   }
 
   .site-footer__mark {
     font-family: var(--font-display);
-    font-style: italic;
-    font-size: 2rem;
-    color: var(--color-ink-100);
-    margin: 0 0 0.5rem;
-    letter-spacing: -0.01em;
+    font-size: 1.6rem;
+    color: var(--color-ink);
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.005em;
+    line-height: 1;
   }
 
   .site-footer__tag {
     margin: 0;
-    color: var(--color-ink-500);
-    font-size: 0.95rem;
+    color: var(--color-ink-muted);
+    font-size: 0.92rem;
     line-height: 1.6;
   }
 
@@ -101,8 +101,7 @@ const year = new Date().getFullYear();
   }
 
   .site-footer__nav .eyebrow {
-    margin-bottom: 1rem;
-    color: var(--color-ink-300);
+    margin: 0 0 1rem;
   }
 
   .site-footer__nav ul {
@@ -115,47 +114,25 @@ const year = new Date().getFullYear();
   }
 
   .site-footer__nav a {
-    color: var(--color-ink-400);
-    transition: color var(--duration-fast) var(--ease-out-soft);
-    font-size: 0.95rem;
+    color: var(--color-ink);
+    transition: opacity var(--duration-fast) var(--ease-out);
+    font-size: 0.92rem;
+    opacity: 0.8;
   }
 
   .site-footer__nav a:hover {
-    color: var(--color-ember);
-  }
-
-  .site-footer__rule {
-    width: 100%;
-    max-width: var(--container-max);
-    margin: var(--space-xl) auto var(--space-md);
-    padding-inline: clamp(1.25rem, 4vw, 3rem);
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      var(--color-ink-800) 30%,
-      var(--color-ink-800) 70%,
-      transparent
-    );
+    opacity: 1;
   }
 
   .site-footer__legal {
     width: 100%;
     max-width: var(--container-max);
-    margin-inline: auto;
+    margin: var(--space-xl) auto 0;
     padding-inline: clamp(1.25rem, 4vw, 3rem);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.82rem;
-    color: var(--color-ink-500);
-  }
-
-  .site-footer__credit {
-    font-style: italic;
-    margin: 0;
+    border-top: 1px solid var(--color-rule);
+    padding-top: var(--space-md);
+    font-size: 0.78rem;
+    color: var(--color-ink-faint);
   }
 
   .site-footer__legal p {
